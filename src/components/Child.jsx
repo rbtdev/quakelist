@@ -5,8 +5,9 @@ class Child extends Component {
   render() {
     return (
       <div>
-        I'm the child. My name is {this.props.name}
-        <div>My age is: {this.props.age}</div>
+        <div>
+          My name is {this.props.name} and my age is: {this.props.age}
+        </div>
         <button onClick={this.props.onClicked}>ChildButton</button>
       </div>
     );

@@ -5,6 +5,7 @@ class Parent extends Component {
     name: "",
     age: "",
     clickedName: "",
+    clickedAge: "",
     children: [
       {
         name: "Caleb",
@@ -41,8 +42,10 @@ class Parent extends Component {
   // };
 
   //CLOSURE
-  childClicked = name => () => {
-    this.setState({ clickedName: name });
+  //contains the function and the local scope of the function
+  // with all the variables (environment) when the closure was created
+  childClicked = (name, age) => () => {
+    this.setState({ clickedName: name, clickedAge: age });
   };
 
   render() {
@@ -51,12 +54,12 @@ class Parent extends Component {
         <button onClick={this.createChild}>Add Child</button>
         <input placeholder={"name"} onChange={this.nameChanged} />
         <input placeholder={"age"} onChange={this.ageChanged} />
-        {this.state.clickedName}
+        {this.state.clickedName} {this.state.clickedAge}
         {this.state.children.map(child => (
           <Child
             name={child.name}
             age={child.age}
-            onClicked={this.childClicked(child.name)}
+            onClicked={this.childClicked(child.name, child.age)}
           />
         ))}
       </div>
