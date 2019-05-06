@@ -1,51 +1,91 @@
 import React, { Component } from "react";
 import Earthquake from "./Earthquake";
+import _ from 'lodash';
 
-class Earthquakes extends Component {
-  state = { days: null };
+const CHECK_FEED_MS = 60000; // 1 min
 
-  fetchQuakes = async () => {
-    let response = await fetch(
-      "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
-    );
-    let earthquakes = await response.json();
-
-    let oneDayMs = 24 * 60 * 60 * 1000; // One day in MS
-    let now = Date.now();
-
-    let days = [];
-    earthquakes.features.forEach(earthquake => {
-      let delta = now - earthquake.properties.time;
-      let day = Math.trunc(delta / oneDayMs);
-
-      days[day] = days[day] || [];
-      days[day].push(earthquake);
-    });
-    this.setState({ days: days });
-  };
-
-  async componentDidMount() {
-    setInterval(this.fetchQuakes, 1000);
+class NewQuakes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: true
+    }
   }
 
   render() {
-    let { days } = this.state;
+    let { isOpen } = this.state;
+    let { quakes, onClear } = this.props;
+    let buttonStyle = {
+      padding: '5px',
+      margin: '10px',
+      display: 'inline-block'
+    }
     return (
-      <div>
-        {days && (
+      <div style={{ marginTop: "20px" }}>
+        <div>{quakes.length} New Earhqauke{quakes.length !== 1?'s':''}
+        {quakes.length ?
+            <button
+              style={buttonStyle}
+              onClick={() => { this.setState({ isOpen: !isOpen }) }}>{isOpen ? 'Close' : 'Open'}
+            </button>
+            : null}
+        </div>
+
+        {(quakes.length && isOpen) ?
           <div>
-            <div>
-              {days.map((day, index) => (
-                <div>
-                  Days Ago: {index}
-                  {day.map(feature => (
-                    <Earthquake data={feature} />
-                  ))}
-                </div>
-              ))}
+            <button style={buttonStyle} onClick={ () => {this.setState({isOpen: false}); onClear()}}>Clear</button>
+            <div style={{
+              textAlign: 'left',
+              width: '300px',
+              whiteSpace:'nowrap',
+              overflow: 'hidden',
+              margin: '0 auto'
+            }}>
+              {quakes.map(quake => (<Earthquake data={quake} />))}
             </div>
           </div>
-        )}
+          : null}
+      </div>
+    )
+  }
+}
+
+class Earthquakes extends Component {
+  state = {
+    newQuakes: [],
+    feedInfo: null,
+    testQuakes: [],
+    countDown: CHECK_FEED_MS/1000
+  };
+
+  earthquakes = [];
+
+  fetchQuakes = async () => {
+    let response = await fetch(
+      "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"
+    );
+    let feed = await response.json();
+    let newQuakes = this.state.newQuakes.concat(_.differenceBy(feed.features, this.earthquakes, 'id'))
+    this.setState({ countDown:CHECK_FEED_MS/1000, feedInfo: feed.metadata, newQuakes: newQuakes });
+    this.earthquakes = feed.features;
+  };
+
+  async componentDidMount() {
+    this.fetchQuakes();
+    setInterval(this.fetchQuakes, CHECK_FEED_MS);
+    setInterval(()=>{this.setState({countDown: this.state.countDown-1})}, 1000)
+  }
+
+  render() {
+    return (
+      <div style = {{width: '500px', margin: '0 auto'}}>
+        <div style={{ fontSize: 'larger', margin: '20px' }}>
+          {this.state.feedInfo && this.state.feedInfo.title}
+        </div>
+        <div>
+          Checking USGS in {this.state.countDown} seconds
+        </div>
+        <NewQuakes quakes={this.state.newQuakes} onClear={() => {this.setState({ newQuakes: [] })}} />
       </div>
     );
   }
