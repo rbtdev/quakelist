@@ -36,12 +36,12 @@ class NewQuakes extends Component {
             <button style={buttonStyle} onClick={ () => {this.setState({isOpen: false}); onClear()}}>Clear</button>
             <div style={{
               textAlign: 'left',
-              width: '300px',
+              width: '600px',
               whiteSpace:'nowrap',
               overflow: 'hidden',
               margin: '0 auto'
             }}>
-              {quakes.map(quake => (<Earthquake data={quake} />))}
+              {quakes.map(quake => (<Earthquake data={quake}/>))}
             </div>
           </div>
           : null}
@@ -50,7 +50,7 @@ class NewQuakes extends Component {
   }
 }
 
-class Earthquakes extends Component {
+class EarthquakeList extends Component {
   state = {
     newQuakes: [],
     feedInfo: null,
@@ -62,10 +62,12 @@ class Earthquakes extends Component {
 
   fetchQuakes = async () => {
     let response = await fetch(
-      "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"
+      "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson"
     );
     let feed = await response.json();
-    let newQuakes = this.state.newQuakes.concat(_.differenceBy(feed.features, this.earthquakes, 'id'))
+    let newQuakes = this.state.newQuakes
+      .concat(_.differenceBy(feed.features, this.earthquakes, 'id'))
+      .sort((a,b) => (b.properties.time - a.properties.time));
     this.setState({ countDown:CHECK_FEED_MS/1000, feedInfo: feed.metadata, newQuakes: newQuakes });
     this.earthquakes = feed.features;
   };
@@ -78,7 +80,7 @@ class Earthquakes extends Component {
 
   render() {
     return (
-      <div style = {{width: '500px', margin: '0 auto'}}>
+      <div style = {{width: '600px', margin: '0 auto'}}>
         <div style={{ fontSize: 'larger', margin: '20px' }}>
           {this.state.feedInfo && this.state.feedInfo.title}
         </div>
@@ -91,4 +93,4 @@ class Earthquakes extends Component {
   }
 }
 
-export default Earthquakes;
+export default EarthquakeList;

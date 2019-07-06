@@ -1,28 +1,36 @@
 import React, { Component } from "react";
+import moment from 'moment';
 class Earthquake extends Component {
   state = {};
 
   render() {
-    let { data } = this.props;
+    let { data, onClick } = this.props;
     let color = 'red'
     if (data.properties.mag < 3) color = 'green';
     else if (data.properties.mag >= 3 && data.properties.mag < 5) color = 'blue';
     else if (data.properties.mag >=5 && data.properties.mag < 7) color = 'orange';
     let magStyle = {
-      width: '40px',
+      position:'relative',
+      width: '10%',
+      bottom: '10px',
       display: 'inline-block',
       color: color,
-      marginLeft: '40px'
     }
-    let placeStyle = {
+    let placeStyle = {}
+    let timeStyle = {}
+    let infoStyle = {
+      fontSize: 'smaller',
       display: 'inline-block',
-      color: color
+      width: '90%',
     }
     return (
-      <div style = {{padding: '3px'}}>
-        <a href={data.properties.url}>
-          <div style = {magStyle}>{data.properties.mag}</div><div style = {placeStyle}>{data.properties.place}</div>
-        </a>
+      <div style = {{padding: '6px'}}>
+          <div style = {magStyle}>{data.properties.mag}</div>
+          <div style = {infoStyle}>
+            <div style = {placeStyle}>{data.properties.place}</div>
+            <div style = {timeStyle}>
+              {moment(data.properties.time).format("MMM DD YYYY HH:mm:sss")} (about {moment(data.properties.time).fromNow()})</div>
+          </div>
       </div>
     );
   }

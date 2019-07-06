@@ -1,12 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Earthquakes from "./components/Earthquakes";
+import EarthquakeList from "./components/EarthquakeList";
 
 function App() {
   return (
     <div className="App">
-      <Earthquakes />
+      <EarthquakeList />
     </div>
   );
 }
