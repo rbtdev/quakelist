@@ -4,6 +4,11 @@ class Earthquake extends Component {
   state = {};
 
   render() {
+    let mag = mStr => {
+      let m = parseFloat(mStr);
+      //m = Math.round(m*10)/10;
+      return (m.toFixed(1).padStart(2, '0'))
+    }
     let { data } = this.props;
     let color = 'red'
     if (data.properties.mag < 3) color = 'green';
@@ -34,11 +39,11 @@ class Earthquake extends Component {
     }
     return (
       <div style = {quakeStyle}>
-          <div style = {magStyle}>{data.properties.mag}</div>
+          <div style = {magStyle}>{mag(data.properties.mag)}</div>
           <div style = {infoStyle}>
             <div style = {placeStyle}>{data.properties.place}</div>
             <div style = {timeStyle}>
-              {moment(data.properties.time).format("MMM DD YYYY HH:mm:ss.SSS")} (about {moment(data.properties.time).fromNow()})</div>
+              {moment(data.properties.time).format("MMM DD YYYY HH:mm:ss.SSS")} ({moment(data.properties.time).fromNow()})</div>
           </div>
       </div>
     );
