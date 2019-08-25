@@ -192,11 +192,11 @@ class Feed extends Component {
           </span>
       )
     }
-    
+
     if (this.state.firstLoad) this.fetchQuakes();
 
     return (
-      <div style={{ textAlign: 'left', margin: '10px', width: '100%' }}>
+      <div style={{ textAlign: 'left', width: '100%' }}>
         <div>
           <select id="feed-select" value={this.state.currentFeed} onChange={this.changeFeed}>
             {FEEDS.map((feed, i) => (

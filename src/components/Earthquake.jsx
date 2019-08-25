@@ -4,11 +4,7 @@ class Earthquake extends Component {
   state = {};
 
   render() {
-    let mag = mStr => {
-      let m = parseFloat(mStr);
-      //m = Math.round(m*10)/10;
-      return (m.toFixed(1).padStart(2, '0'))
-    }
+    let mag = mStr => (parseFloat(mStr).toFixed(1))
     let { data } = this.props;
     let color = 'red'
     if (data.properties.mag < 3) color = 'green';
