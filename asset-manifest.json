@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/quakelist/static/css/main.579e7f1f.chunk.css",
-    "main.js": "/quakelist/static/js/main.6fefe2f5.chunk.js",
-    "main.js.map": "/quakelist/static/js/main.6fefe2f5.chunk.js.map",
+    "main.js": "/quakelist/static/js/main.94b00abe.chunk.js",
+    "main.js.map": "/quakelist/static/js/main.94b00abe.chunk.js.map",
     "runtime~main.js": "/quakelist/static/js/runtime~main.cfed8d83.js",
     "runtime~main.js.map": "/quakelist/static/js/runtime~main.cfed8d83.js.map",
-    "static/js/2.2054e729.chunk.js": "/quakelist/static/js/2.2054e729.chunk.js",
-    "static/js/2.2054e729.chunk.js.map": "/quakelist/static/js/2.2054e729.chunk.js.map",
+    "static/js/2.74978752.chunk.js": "/quakelist/static/js/2.74978752.chunk.js",
+    "static/js/2.74978752.chunk.js.map": "/quakelist/static/js/2.74978752.chunk.js.map",
     "index.html": "/quakelist/index.html",
-    "precache-manifest.ce8515c1c2d14c5fd399cf2d797dc9e9.js": "/quakelist/precache-manifest.ce8515c1c2d14c5fd399cf2d797dc9e9.js",
+    "precache-manifest.c2fa5a7627e4ef953199bfa82e2f1191.js": "/quakelist/precache-manifest.c2fa5a7627e4ef953199bfa82e2f1191.js",
     "service-worker.js": "/quakelist/service-worker.js",
     "static/css/main.579e7f1f.chunk.css.map": "/quakelist/static/css/main.579e7f1f.chunk.css.map",
     "static/media/logo.svg": "/quakelist/static/media/logo.5d5d9eef.svg"
