@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6d66c350aff6b797262ebbad1ba6431f",
+    "revision": "41349f9c2dbedbdcfe7b95bd330fd63e",
     "url": "/quakelist/index.html"
   },
   {
-    "revision": "0f9ff83a3e0317beef7c",
+    "revision": "b435c01d91b3ecb508ca",
     "url": "/quakelist/static/css/main.579e7f1f.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/quakelist/static/js/2.74978752.chunk.js"
   },
   {
-    "revision": "0f9ff83a3e0317beef7c",
-    "url": "/quakelist/static/js/main.745daa18.chunk.js"
+    "revision": "b435c01d91b3ecb508ca",
+    "url": "/quakelist/static/js/main.9eb62409.chunk.js"
   },
   {
     "revision": "ac48b4bb7c49391a1a0c",
